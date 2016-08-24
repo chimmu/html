@@ -1,0 +1,148 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>地点</title>
+		<style type="text/css">
+			body, html {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				font-family: "微软雅黑";
+			}
+			#map_canvas {
+				width: 100%;
+				height: 100%;
+			}
+			#result {
+				height:100%;
+				width: 100%;
+			}
+		</style>
+		<script src="http://api.map.baidu.com/api?v=2.0&ak=cHYvh0O1LCfnRMQqyVXfcSIv4r2geavM">
+		</script>
+		
+	</head>
+	<body>
+		<div id= "map_canvas"> </div>
+		<script>
+			var map = new BMap.Map('map_canvas');
+			map.centerAndZoom('厦门市', 11);
+			map.enableScrollWheelZoom();
+
+			var arr = new Array("不夜城 07:35", 
+"潘宅 07：40 ",
+"嘉盛瑞景 07：43",
+"东方山庄 07：46",
+"卧龙晓城 07：48",
+"移动通信保税区（下班时安全局路口左转）",
+"上李 07：20 ",
+"文曾路 07：23",
+"艺术学院口 07：26",
+"厦大白城 07：30",
+"厦大西校门 07：35",
+"鹭大 07：39 ",
+"大生里 07：44",
+"海景大厦 07：49",
+"轮渡海关 07：54 ",
+"国贸安利 07：58 ",
+"商检 08：05   ",
+"斗西路段美仁洞口 07：34",
+"开元外贸站 07：37",
+"古龙商城前麦当劳 07：40",
+"文灶公交站口 07：44",
+"金榜路口 07：49 ",
+"假日商城 07：52",
+"福津大街湖滨南路口 07：55", 
+"南湖公园 08：00",
+"保税区（返回时在普利大厦后面路口下车）",
+"金山国际 07:35",
+"中浮花园天桥下 07：40",
+"吕岭工行路口 07：42",
+"吕岭消防建行口 07：44",
+"江头邮局天桥下 07：47",
+"嘉禾路天虹对面桥下 07：49", 
+"SM银鹭大厦路口 07：55",
+"大唐世家站 08：00",
+"马垅嘉禾建行口（上班时间经过） 08:06",
+"翔鹭 07:50",
+"湖里电业局 07：53",
+"湖里红楼 07:55 ",
+"马垅社 08:00",
+"水上乐园（园林中心门口） 08：08",
+"劳拉 08：10",
+"工业学校 08:12",
+"金尚路家家景 07：50",
+"中孚和太微花园 07：55",
+"太微山庄 08：00",
+"穆厝 08：00",
+"钟宅路口 08：04",
+"大唐 08：08",
+"第一医院路口 07：47",
+"鹭辉大厦 07：52 ",
+"团结大厦 07：57",
+"繁荣广场 08：02",
+"保税区 （其中该车辆与82087属交叉路线）",
+"角滨路段 07：50",
+"故宫东路 07：53",
+"光大银行 07：57",
+"市政府 8：00",
+"中行 08：02",
+"屿后北里（遵义羊肉粉公交站边） 07:50",
+"舒香园姜母鸭 07:51",
+"长青路厦门银行对面 07:55",
+"滨北平安银行门口 08:00",
+"育秀路海峡导报（金领凯悦边） 08:02",
+"人才中心对面（边防大厦口） 08：06",
+"岳阳小区（永辉门口） 08:10",
+"金尚尚忠加油站 08:05",
+"大唐世家ABB门口",
+"嘉禾路建行口",
+"未来海岸（肯德基门口） 07:30",
+"水岸名筑(礼品城公交站)  07:32",
+"养生大街站 07:35",
+"阿罗海城市广场站 07:38",
+"海投区政府站 07:40",
+"泉舜信海花园(人行道边) 07:41",
+"海沧医院站 07:42",
+"地税(刘山村站) 07:45",
+"石塘村站 07:47",
+"文兴东二里 07:35",
+"嘉盛豪园",
+"金尚万和春天酒店。"
+);
+var index = 0;
+var myGeo = new BMap.Geocoder();
+	/* function bdGEO(){
+		var add = addr[index];
+		geocodeSearch(add);
+		index++;
+	}*/
+	function geocodeSearch(add, time){
+		/*
+		if(index < addr.length){
+			setTimeout(window.bdGEO,400);
+		}*/
+		myGeo.getPoint(add, function(point){
+			if (point) {
+				<!-- document.getElementById("result").innerHTML +=  index + "、" + add + ":" + point.lng + "," + point.lat + "</br>"; -->
+				var address = new BMap.Point(point.lng, point.lat);
+				addMarker(address,new BMap.Label(add + "--" + time,{offset:new BMap.Size(20,-10)}));
+			}
+		}, "厦门市");
+	}
+	// 编写自定义函数,创建标注
+	function addMarker(point,label){
+		var marker = new BMap.Marker(point);
+		map.addOverlay(marker);
+		marker.setLabel(label);
+	}
+for (var i = 0; i < arr.length; i++) {
+	var addr = arr[i].split(" ");
+	console.log(addr[0]);
+	geocodeSearch(addr[0], addr[1]);
+}
+		</script>
+	</body>
+</html>
+
+ 
