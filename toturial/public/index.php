@@ -8,13 +8,14 @@ date_default_timezone_set('Asia/Shanghai');
 define('APP_PATH', __DIR__ . '/../');
 try {
     require_once APP_PATH . 'app/config/register.php';
+    $config = require_once APP_PATH . 'app/config/config.php';
     // Create a DI
     $application = new Application($di);
-//     $services = $application->getDI()->getServices();
-//     foreach ($services as $key => $val) {
-//     	var_dump($key);
-//     	var_dump(get_class($application->getDI()->get($key)));
-//     }
+    # $services = $application->getDI()->getServices();
+    # foreach ($services as $key => $val) {
+    # 	var_dump($key);
+    # 	var_dump(get_class($application->getDI()->get($key)));
+    # } 
     // Handle the request
    echo $application->handle()->getContent();
 
